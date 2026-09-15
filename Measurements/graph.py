@@ -104,11 +104,14 @@ def plot_density_bar(ax, densities, errors, true_density, title, bar_color):
                    color=bar_color, edgecolor="black", width=0.6,
                    error_kw={"ecolor": "black", "elinewidth": 1.5})
 
-    # average and true density reference lines
+    # average reference line
     ax.axhline(avg_density, color="green", linestyle="--", linewidth=2,
                label=f"Average ({avg_density:.3f})")
-    ax.axhline(true_density, color="red", linestyle="-", linewidth=2,
-               label=f"True/accepted ({true_density:.3f})")
+
+    # true/accepted density reference line (optional)
+    if true_density is not None:
+        ax.axhline(true_density, color="red", linestyle="-", linewidth=2,
+                   label=f"True/accepted ({true_density:.3f})")
 
     # bar value labels (placed above the error bar cap)
     for bar, val, err in zip(bars, densities, errors):
@@ -117,7 +120,8 @@ def plot_density_bar(ax, densities, errors, true_density, title, bar_color):
 
     ax.set_xlabel("Trial")
     ax.set_ylabel("Density")
-    ax.set_ylim(0, max(max(densities), true_density) + max(errors) + 0.5)
+    top_reference = true_density if true_density is not None else 0
+    ax.set_ylim(0, max(max(densities), top_reference) + max(errors) + 0.5)
     ax.legend(fontsize=8)
 
     print(title)
@@ -144,7 +148,7 @@ plot_density_bar(ax1, density_A, error_A, true_density_water,
                   f"Part A: Water (100 mL Cylinder) at {temperature_A}\u00b0C", "#4C72B0")
 plot_density_bar(ax2, density_B, error_B, true_density_water,
                   f"Part B: Water (50 mL Beaker) at {temperature_B}\u00b0C", "#DD8452")
-plot_density_bar(ax3, density_C, error_C, true_density_penny,
+plot_density_bar(ax3, density_C, error_C, None,
                   "Part C: Penny", "#55A868")
 
 plt.tight_layout()
