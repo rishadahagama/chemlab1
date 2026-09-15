@@ -117,7 +117,6 @@ def plot_density_bar(ax, densities, errors, true_density, title, bar_color):
 
     ax.set_xlabel("Trial")
     ax.set_ylabel("Density")
-    ax.set_title(title, fontsize=10)
     ax.set_ylim(0, max(max(densities), true_density) + max(errors) + 0.5)
     ax.legend(fontsize=8)
 
@@ -148,7 +147,7 @@ plot_density_bar(ax2, density_B, error_B, true_density_water,
 plot_density_bar(ax3, density_C, error_C, true_density_penny,
                   "Part C: Penny", "#55A868")
 
-fig.suptitle("Measurements Lab: Density Results", fontsize=14, fontweight="bold")
 plt.tight_layout()
+plt.subplots_adjust(wspace=0.4, top=0.85)
 plt.savefig("density_bar_graphs_all.png", dpi=200)
 plt.show()
