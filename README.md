@@ -1,1 +1,1 @@
-# chemlab1 This is my repository for GenChem 1 laboratories
+# Python code for Question 1 of Module 5 activity
